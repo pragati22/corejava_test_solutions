@@ -1,5 +1,9 @@
 package com.training.model;
-
+/*
+ * @AUTHOR PRAGATI
+ * 
+ * PARENT class that has attributes extended by food,electronics,apparels
+ */
 public class Product {
 
 	private int itemCode;

@@ -13,12 +13,10 @@ public interface ProductRetailDAO<T> {
 
 	 
 		boolean addFoodItems(FoodItem ...foodItems);
-	    boolean addApparel(Apparel ...apparel);
-	    void sortAll();
-	    Collection<?> fetchResult(String productType);
+	    boolean addApparels(Apparel ...apparels);
 	    boolean addElectonics(Electronics ...electronics);
-	
-	
-	
-	
+	    Collection<?> viewReport(String productType);
+	    public void printList(Collection<?> invList);
+	    void sortAll();
+
 }

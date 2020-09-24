@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,16 +27,22 @@ public class ProductRetailDAOimpl<T> implements ProductRetailDAO<T> {
 	private ArrayList<Electronics> electronics = null;
       
 
-    public ProductRetailDAOimpl(ArrayList<FoodItem> foodItems, ArrayList<Apparel> apparels,
-			ArrayList<Electronics> electronics, List<FoodItem> foodList, List<Apparel> appList,
-			List<Electronics> elecList) {
+    public ProductRetailDAOimpl() {
+		super();
+	
+	}
+
+	public ProductRetailDAOimpl(ArrayList<FoodItem> foodItems, ArrayList<Apparel> apparels,
+			ArrayList<Electronics> electronics, List<FoodItem> foodList, List<Apparel> apparelList,
+			List<Electronics> electronicsList) {
 		super();
 		this.foodItems = foodItems;
 		this.apparels = apparels;
 		this.electronics = electronics;
 	
 	}
-
+	
+	//method to add food items to food item list
 	@Override
     public boolean addFoodItems(FoodItem... foodItems) {
         
@@ -43,13 +50,19 @@ public class ProductRetailDAOimpl<T> implements ProductRetailDAO<T> {
         
         for(FoodItem f: foodItems)
         {
-            this.foodItems.add(f);
-            result=true;
+            try {
+				this.foodItems.add(f);
+				result=true;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
             return result;
             
     }
-
+	
+	//method to add electronics items to item list
     @Override
     public boolean addElectonics(Electronics... electronics) {
         
@@ -57,34 +70,40 @@ public class ProductRetailDAOimpl<T> implements ProductRetailDAO<T> {
         
         for(Electronics e: electronics)
         {
-            this.electronics.add(e);
-            result=true;
+            try {
+				this.electronics.add(e);
+				result=true;
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
             return result;
     }
 
+  //method to add apparels items to apparel item list
     @Override
-    public boolean addApparel(Apparel... apparels) {
+    public boolean addApparels(Apparel... apparels) {
         boolean result =false;
         
 		for(Apparel a: apparels)
         {
-            this.apparels.add(a);
-            result=true;
-        }
+            try {
+				this.apparels.add(a);
+				result=true;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	}
+        
+        
             return result;
     }
 
+    //to fetch result on the basis of category
     @Override
-    public void sortAll() {
-        
-        Collections.sort(this.foodItems);
-        Collections.sort(this.electronics);
-        Collections.sort(this.apparels);
-    }
-
-    @Override
-    public Collection<?> fetchResult(String productType) {
+    public Collection<?> viewReport(String productType) {
         
         if(productType.equalsIgnoreCase("FoodItems"))
             return this.foodItems;
@@ -98,10 +117,33 @@ public class ProductRetailDAOimpl<T> implements ProductRetailDAO<T> {
         return null;
     }
 
-	public ProductRetailDAOimpl() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	//to sort list on the basis of quantity
+    @Override
+    public void sortAll() {
+        
+    	//Comparator class to compare products or items with quantity as parameter
+    	CompareByQuantity quantityComparator= new CompareByQuantity();
+    	
+    	foodItems.sort(quantityComparator);
+    	electronics.sort(quantityComparator);
+    	apparels.sort(quantityComparator);
+      
+    }
+    
+    // to print the list
+    public void printList(Collection<?> invList)
+    {
+        Iterator<?> itrator= invList.iterator();
+        int count = 0;
+        while(itrator.hasNext() && count<3)
+        {
+            System.out.println(itrator.next());
+            count++;
+                    
+        }
+    }
+
+    
 }
 
 

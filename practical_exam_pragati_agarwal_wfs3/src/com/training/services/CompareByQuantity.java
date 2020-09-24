@@ -10,7 +10,7 @@ public class CompareByQuantity implements Comparator<Product> {
 	
 	@Override
 	public int compare(Product product1, Product product2) {
-		// TODO Auto-generated method stub
+		//compare quantities and return respective values
 		if(product1.getQuantity()<product2.getQuantity()) return -1;
 		if(product1.getQuantity()>product2.getQuantity()) return 1;
 		return 0;
